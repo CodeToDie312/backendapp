@@ -1,0 +1,103 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  name      String
+  password  String
+  email     String @unique
+  otp       OtpVerification?
+}
+
+model Student {
+  id                Int    @id @default(autoincrement())
+  fullname          String
+  student_code      String @unique
+  position_name     String?
+  topic_code        String?
+  Topic             Topic?  @relation(fields: [topic_code], references: [topic_code])
+}
+
+model Employee {
+  id                    Int    @id @default(autoincrement())
+  fullname              String
+  employ_code           String @unique
+  position              String?
+  birthday              String?
+  id_card_number        String?
+  social_code           String?
+  address               String?
+  education             String?
+  level                 String?
+  foreign_lang          String?
+  it_level              String?
+  join_clan             String?
+  nation                String?
+  sex                   String?
+  date_join             String?
+  payday                String?
+  level_salary          String?
+  multiplier            String?
+  extend_salary         String?
+  link_file_id_card     String?
+  link_education        String?
+  link_contract         String?
+}
+
+model Topic {
+  id                      Int    @id @default(autoincrement())
+  name_topic              String
+  topic_code              String @unique
+  version                 String?
+  type                    String?
+  unit                    String?
+  level_manager           String?
+  burget                  String?
+  year                    String?
+  link_file_explanation   String?
+  link_file_outline       String?
+  link_file_report        String?
+  student                 Student[]
+}
+
+model Proposal {
+  id                         Int    @id @default(autoincrement())
+  name_proposal              String
+  proposal_code              String @unique
+  date_created               String?
+  signer                     String?
+  status                     Boolean @default(false)
+  link_file_not_sign         String?
+  link_file_report_proposal  String?
+  version                    Version[]
+}
+
+model Version {
+  id                         Int    @id @default(autoincrement())
+  name_version               String
+  proposal_code              String?
+  date_version_created       String?
+  signer_version             String?
+  fwd                        String?
+  Proposal                   Proposal? @relation(fields: [proposal_code], references: [ proposal_code])
+}
+
+model OtpVerification {
+  id            Int @id @default(autoincrement())
+  user_id       Int @unique
+  otp           String
+  created_at    DateTime @default(now())
+  expiredAt     DateTime
+  isVerified    Boolean  @default(false)
+  user          User  @relation(fields:[user_id], references:[id])
+}
+
+
+
+

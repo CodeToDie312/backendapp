@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "5eafaecd-cf36-41a3-8ff2-ff356af5682b",
+		"name": "BackendAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27715644"
+	},
+	"item": [
+		{
+			"name": "UserRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"admin\",\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTczMzkyODE4MCwiZXhwIjoxNzMzOTMxNzgwfQ.heuk2tn59I3CDh5osPDVxt7XGc-oGCq0OdEltiqrZ0c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"12345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api//login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTczMzkzODIwNCwiZXhwIjoxNzMzOTQxODA0fQ.Dvn3a39tGhG510_pmngJl5i2N3IPKJxO3hbOnPDzVOE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Topic Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data_create\": {\n        \"name_topic\" : \"8888\",\n        \"topic_code\": \"9999\",\n        \"version\": \"1\",\n        \"type\": \"1\",\n        \"unit\": \"dao tao\",\n        \"level_manager\": \"cap hoc vien\",\n        \"burget\": \"30000000\",\n        \"year\": \"2024\"\n        \n    },\n    \"student\": [\n        {\n        \"fullname\": \" BUa\",\n        \"student_code\": \"TDB009\",\n        \"position_name\": \"Lead\"\n\n        },\n        {\n            \"fullname\": \" vvvv\",\n            \"student_code\": \"TDB021\",\n            \"position_name\": \"memeber\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/topic/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"topic",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Topic filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topic_code\": \"00009\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/topic/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"topic",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Topic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topic_code\": \"00001\",\n    \"data_update\": {\n        \"name_topic\": \"ssfdsgs\",\n        \"version\" : \"99\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/topic/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"topic",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Topic All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/topic/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"topic",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Proposal Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"data_create\" : {\n        \"name_proposal\": \"44444\",\n        \"proposal_code\": \"00099999\",\n        \"date_created\": \"12-12-2024\",\n        \"signer\": \"tao\",\n        \"status\": true\n   },\n   \"version\" : [\n        {\n            \"name_version\": \"v1\",\n            \"date_version_created\": \"13/12/2024\",\n            \"signer_version\": \"ssss4\",\n            \"fwd\": \"ff\"\n        },\n         {\n            \"name_version\": \"v2\",\n            \"date_version_created\": \"31/12/2024\",\n            \"signer_version\": \"ssss4\",\n            \"fwd\": \"ff\"\n        }\n   ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/proposal/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"proposal",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL proposal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/v1/proposal/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"proposal",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Proposal Filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"proposal_code\": \"6666\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/proposal/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"proposal",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Proposal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"proposal_code\" : \"66666\",\n    \"data_update\": {\n        \"date_created\" : \"12/12/2024\"\n    },\n    \"version\": {\n        \"date_created\": \"12/12/2024\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/proposal/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"proposal",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fullname\": \"test3\",\n    \"employ_code\": \"2222\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/employee/create",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee filter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employ_code\": \"2222\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/employee/filter",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee All",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employ_code\": \"2222\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/employee/all",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee Update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employ_code\": \"2222\",\n    \"data_update\": {\n        \"fullname\" : \"gacon123\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/employee/update",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
