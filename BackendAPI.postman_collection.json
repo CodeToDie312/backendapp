@@ -81,7 +81,36 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTczMzkzODIwNCwiZXhwIjoxNzMzOTQxODA0fQ.Dvn3a39tGhG510_pmngJl5i2N3IPKJxO3hbOnPDzVOE",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNzM1MjI4Mzc4LCJleHAiOjE3MzUyMzE5Nzh9.6vBv38bV7miGzNz78jRxY97-x2L1Iia8f2IuRayi3T0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "chart",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNzM1MjI4Mzc4LCJleHAiOjE3MzUyMzE5Nzh9.6vBv38bV7miGzNz78jRxY97-x2L1Iia8f2IuRayi3T0",
 							"type": "string"
 						}
 					]
@@ -109,7 +138,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"data_create\": {\n        \"name_topic\" : \"8888\",\n        \"topic_code\": \"9999\",\n        \"version\": \"1\",\n        \"type\": \"1\",\n        \"unit\": \"dao tao\",\n        \"level_manager\": \"cap hoc vien\",\n        \"burget\": \"30000000\",\n        \"year\": \"2024\"\n        \n    },\n    \"student\": [\n        {\n        \"fullname\": \" BUa\",\n        \"student_code\": \"TDB009\",\n        \"position_name\": \"Lead\"\n\n        },\n        {\n            \"fullname\": \" vvvv\",\n            \"student_code\": \"TDB021\",\n            \"position_name\": \"memeber\"\n        }\n    ]\n}",
+					"raw": "{\n    \"data_create\": {\n        \"name_topic\" : \"NV_02_B\",\n        \"topic_code\": \"vvv3\",\n        \"version\": \"12\",\n        \"type\": \"de tai\",\n        \"unit\": \"dao tao\",\n        \"level_manager\": \"cap hoc vien\",\n        \"burget\": \"30000000\",\n        \"year\": \"2024\"\n        \n    },\n    \"student\": [\n        {\n        \"fullname\": \" a\",\n        \"student_code\": \"cod5\",\n        \"position_name\": \"Lead\"\n\n        },\n        {\n            \"fullname\": \" aa2\",\n            \"student_code\": \"cod6\",\n            \"position_name\": \"memeber\"\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -139,7 +168,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"topic_code\": \"00009\"\n}",
+					"raw": "{\n    \"version\": \"100\",\n    \"name_topic\": \"topic1\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -163,13 +192,43 @@
 			"response": []
 		},
 		{
+			"name": "Topic search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topic_code\": \"NV_01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/topic/search",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"topic",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update Topic",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"topic_code\": \"00001\",\n    \"data_update\": {\n        \"name_topic\": \"ssfdsgs\",\n        \"version\" : \"99\"\n    }\n}",
+					"raw": "{\n    \"topic_code\": \"0099\",\n    \"data_update\": {\n        \"version\" : \"100\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -193,10 +252,52 @@
 			"response": []
 		},
 		{
+			"name": "Topic delete",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"topic_code\": \"0099\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/topic/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"topic",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Topic All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "localhost:3000/api/v1/topic/all",
 					"host": [
@@ -220,7 +321,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"data_create\" : {\n        \"name_proposal\": \"44444\",\n        \"proposal_code\": \"00099999\",\n        \"date_created\": \"12-12-2024\",\n        \"signer\": \"tao\",\n        \"status\": true\n   },\n   \"version\" : [\n        {\n            \"name_version\": \"v1\",\n            \"date_version_created\": \"13/12/2024\",\n            \"signer_version\": \"ssss4\",\n            \"fwd\": \"ff\"\n        },\n         {\n            \"name_version\": \"v2\",\n            \"date_version_created\": \"31/12/2024\",\n            \"signer_version\": \"ssss4\",\n            \"fwd\": \"ff\"\n        }\n   ]\n}",
+					"raw": "{\n   \"data_create\" : {\n        \"name_proposal\": \"aaâ\",\n        \"proposal_code\": \"3\",\n        \"date_created\": \"27-12-2024\",\n        \"signer\": \"tao\",\n        \"status\": true\n   },\n   \"version\" : [\n        {\n            \"name_version\": \"v1\",\n            \"date_version_created\": \"13/12/2024\",\n            \"signer_version\": \"ssss4\",\n            \"fwd\": \"ff\"\n        },\n        {\n            \"name_version\": \"v2\",\n            \"date_version_created\": \"31/12/2024\",\n            \"signer_version\": \"ssss4\",\n            \"fwd\": \"ff\"\n        }\n   ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -271,7 +372,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"proposal_code\": \"6666\"\n}",
+					"raw": "{\n    \"signer\": \"tao\",\n    \"status\" : true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -295,13 +396,43 @@
 			"response": []
 		},
 		{
+			"name": "Proposal Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"proposal_code\" : \"TT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/proposal/search",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"proposal",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update Proposal",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"proposal_code\" : \"66666\",\n    \"data_update\": {\n        \"date_created\" : \"12/12/2024\"\n    },\n    \"version\": {\n        \"date_created\": \"12/12/2024\"\n    }\n}",
+					"raw": "{\n    \"proposal_code\" : \"3\",\n    \"data_update\": {\n        \"date_created\" : \"12/12/2024\",\n        \"name_proposal\": \"nam2\",\n        \"signer\" : \"tao\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -385,9 +516,42 @@
 			"response": []
 		},
 		{
-			"name": "Employee All",
+			"name": "Employee Search",
 			"request": {
 				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employ_code\": \"EM_\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/v1/employee/search",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"employee",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "raw",
