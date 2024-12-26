@@ -21,7 +21,7 @@ model Student {
   student_code      String @unique
   position_name     String?
   topic_code        String?
-  Topic             Topic?  @relation(fields: [topic_code], references: [topic_code])
+  Topic             Topic?  @relation(fields: [topic_code], references: [topic_code], onDelete: Cascade)
 }
 
 model Employee {
@@ -85,7 +85,7 @@ model Version {
   date_version_created       String?
   signer_version             String?
   fwd                        String?
-  Proposal                   Proposal? @relation(fields: [proposal_code], references: [ proposal_code])
+  Proposal                   Proposal? @relation(fields: [proposal_code], references: [ proposal_code], onDelete: Cascade)
 }
 
 model OtpVerification {

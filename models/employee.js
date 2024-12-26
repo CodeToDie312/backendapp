@@ -50,7 +50,7 @@ const Employee = {
 
     where: async function(clause= {}) {
       try {
-        const employee = await prisma.employee.findMany({ where: clause });
+        const employee = await prisma.employee.findMany({ where: {...clause} });
         return employee;
       } catch (error) {
         console.error("FAILED TO GET EMPLOYEE.", error.message);
@@ -94,5 +94,36 @@ const Employee = {
           return false;
         }
     },
+    whereString: async function(searchTerm) {
+      try {
+        const topic = await prisma.employee.findMany({
+          where: {employ_code: { contains: searchTerm }},
+        });
+        return topic
+      } catch (e){
+        console.log(e)
+        return null;
+      }
+    },
+    groupBy: async function() {
+      const employeesByYear = await prisma.employee.groupBy({
+        by: ['date_join'],
+        _count: {
+          id: true,
+        },
+        orderBy: {
+          date_join: 'desc',
+        },
+      });
+      const result = employeesByYear.map(employee => {
+        let parts = employee.date_join?.split("-"); 
+        let year = parts ? parts[2] : ''; 
+        return {
+          year: year ? year : '2024',
+          count: employee._count.id,
+        };
+      });
+      return result;
+    }
 }
 module.exports = { Employee };

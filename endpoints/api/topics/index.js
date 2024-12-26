@@ -11,7 +11,7 @@ function apiTopicEndpoints(app) {
             response.status(200).json({topic: topic, error: null});
         } catch (e) {
             console.log('FAIL TO GET TOPIC', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
 
@@ -22,19 +22,22 @@ function apiTopicEndpoints(app) {
             response.status(200).json({topic: topic, error: null});
         } catch (e) {
             console.log('FAIL TO GET TOPIC', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
 
     app.post('/v1/topic/create', async (request, response) => {
         try {
             const {data_create, student} = reqBody(request);
-            console.log(student);
+            const checkExist = await Topic.where(data_create.topic_code)
+            if(checkExist){
+                response.status(400).json("Topic code created, please enter other code")
+            }
             const topic = await Topic.create(data_create, student);
             response.status(200).json({topic: topic, error: null});
         } catch (e) {
             console.log('FAIL TO GET TOPIC', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
 
@@ -48,19 +51,40 @@ function apiTopicEndpoints(app) {
             response.status(200).json({topic: topic, error: null});
         } catch (e) {
             console.log('FAIL TO UPDATE TOPIC', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
     
     app.post('/v1/topic/delete', async (request, response) => {
         try {
-            const topic_code = reqBody(request);
-            await Topic.delete({topic_code});
-            response.status(200).message('DELETE TOPIC SUCCESSFUL');
+            const param = reqBody(request);
+            await Topic.delete(param);
+            response.status(200).json('DELETE TOPIC SUCCESSFUL');
         } catch (e) {
-            console.log('FAIL TO UPDATE TOPIC', e.message);
-            response.status(500).message(e.message);
+            console.log('FAIL TO DELETE TOPIC');
+            response.status(500).json('FAIL TO DELETE TOPIC');
         }
     });
+
+    app.post('/v1/topic/search', async (request, response) => {
+        const searchTerm = reqBody(request);
+      
+        if (!searchTerm) {
+          return response.status(400).send({ message: 'Need Key Search' });
+        }
+      
+        try {
+          const topic = await Topic.whereString(searchTerm.topic_code)
+      
+          if (topic.length === 0) {
+            return response.status(404).send({ message: 'No Topic match' });
+          }
+      
+          response.status(200).json(topic);
+        } catch (error) {
+          console.error(error);
+          response.status(500).json("FAIL TO SEARCH");
+        }
+      });
 }
 module.exports = { apiTopicEndpoints };

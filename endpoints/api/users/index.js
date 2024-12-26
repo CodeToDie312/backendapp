@@ -3,7 +3,9 @@ const { otpVerification } = require("../../../models/otpVerification");
 const { reqBody } = require("../../../utils/http");
 const { verifyToken, generateToken, hashPassword, comparePassword } = require('../../../utils/http');
 const { sendOtp } = require("../../../utils/otpMail");
-const prisma = require("../../../utils/prisma");
+const { Topic } = require("../../../models/topic");
+const { Proposal } = require("../../../models/proposal");
+const { Employee } = require("../../../models/employee");
 
 function apiUserEndpoints(app) {
     if (!app) return;
@@ -27,7 +29,7 @@ function apiUserEndpoints(app) {
             response.status(200).json({profile: user, error: null});
         } catch (e) {
             console.log('FAIL TO GET PROFILE', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
 
@@ -48,7 +50,7 @@ function apiUserEndpoints(app) {
             response.json({ user, token });
         } catch (e) {
             console.log('FAIL TO LOGIN', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
     
@@ -66,7 +68,7 @@ function apiUserEndpoints(app) {
             response.status(200).json({ user, token });
         } catch (e){
             console.log('FAIL TO REGISTER', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
 
@@ -95,7 +97,7 @@ function apiUserEndpoints(app) {
             response.status(200).json({message: 'OTP was sended to your mail'});
         } catch (e){
             console.log('FAIL TO RESET PASS', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     })
     app.post("/reset-pass", async(request, response) => {
@@ -131,8 +133,21 @@ function apiUserEndpoints(app) {
             response.status(200).json({message: 'Pass was Change Success'});
         } catch (e){
             console.log('FAIL TO RESET PASS', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
+    })
+    app.get('/chart_data', async(_, response) => {
+        try {
+            const topic = await Topic.groupBy()
+            const proposal = await Proposal.groupBy()
+            const employee = await Employee.groupBy()
+    
+            response.status(200).json({topic: topic, proposal: proposal, employee: employee})
+        } catch (e) {
+            console.log(e)
+            response.status(500).json("error to get chart")
+        }
+
     })
 }
 module.exports = { apiUserEndpoints };

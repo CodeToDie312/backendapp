@@ -53,7 +53,7 @@ const Proposal = {
     where: async function(clause= {}) {
         try {
           const proposal = await prisma.proposal.findMany({ 
-            where: clause,
+            where: {...clause},
             include: {
                 version: true
             }
@@ -87,20 +87,7 @@ const Proposal = {
           const proposal = await prisma.proposal.update({
             where: { proposal_code },
             data:{
-                ...data_update,
-                version: {
-                    update: {
-                        where: {proposal_code : proposal_code},
-                        data: {
-                            name_proposal: version.name_proposal,
-                            proposal_code: version.proposal_code,
-                            date_created: version.date_created,
-                            signer : version.signer,
-                            fwd: version.fwd
-                        }
-                    }
-                    
-                }
+                ...data_update
             },
           });
           return { proposal, error: null };
@@ -143,6 +130,37 @@ const Proposal = {
             console.error(error.message);
             return { message: error.message };
           }
+    },
+    whereString: async function(searchTerm) {
+      try {
+        const proposal = await prisma.proposal.findMany({
+          where: {proposal_code: { contains: searchTerm }},
+        });
+        return proposal
+      } catch (e){
+        console.log(e)
+        return null;
+      }
+    },
+    groupBy: async function() {
+      const proposalsByYear = await prisma.proposal.groupBy({
+        by: ['date_created'],
+        _count: {
+          id: true,
+        },
+        orderBy: {
+          date_created: 'desc',
+        },
+      });
+      const result = proposalsByYear.map(proposal => {
+        let parts = proposal.date_created.split("-"); 
+        let year = parts[2]; 
+        return {
+          year: year,
+          count: proposal._count.id,
+        };
+      });
+      return result;
     }
 }
 module.exports = { Proposal }

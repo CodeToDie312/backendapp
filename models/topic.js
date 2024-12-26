@@ -59,7 +59,7 @@ const Topic = {
     where: async function(clause= {}) {
         try {
           const topic = await prisma.topic.findMany({ 
-            where: clause,
+            where: {...clause},
             include: {
                 student: true
             }
@@ -101,13 +101,11 @@ const Topic = {
         }
     },
 
-    delete: async function (clause = null) {
+    delete: async function (topic_code = null) {
         try {
-          await prisma.topic.delete({ where: clause});
-          return true;
+          await prisma.topic.delete({where: topic_code})
         } catch (error) {
           console.error("FAILED TO DELETE TOPIC.", error.message);
-          return false;
         }
     },
     update_link : async function (topic_code = null, link = {}) {
@@ -123,6 +121,35 @@ const Topic = {
             console.error(error.message);
             return { topic: null, message: error.message };
           }
+    },
+    whereString: async function(searchTerm) {
+      try {
+        const topic = await prisma.topic.findMany({
+          where: {topic_code: { contains: searchTerm }},
+        });
+        return topic
+      } catch (e){
+        console.log(e)
+        return null;
+      }
+    },
+    groupBy: async function() {
+      const topicsByYear = await prisma.topic.groupBy({
+        by: ['year'],
+        _count: {
+          id: true,
+        },
+        orderBy: {
+          year: 'desc',
+        },
+      });
+      const result = topicsByYear.map(topic => {
+        return {
+          year: topic.year,
+          count: topic._count.id,
+        };
+      });
+      return result;
     }
 }
 module.exports = { Topic }
