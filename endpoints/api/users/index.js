@@ -93,13 +93,14 @@ function apiUserEndpoints(app) {
             }
             expirationTime.setMinutes(expirationTime.getMinutes() + 5);
             const checkExist = await otpVerification.get({user_id: user.id})
-            if(new Date() > checkExist.expiredAt){
-                await otpVerification.create({
-                    ...data 
-                });
-            }
+            
             if(checkExist){
                 const user_id = user.id
+                if(new Date() > checkExist.expiredAt){
+                    await otpVerification.delete({
+                        user_id: user.id
+                    });
+                }
                 await otpVerification.update(user_id, data);
             } else {
                 await otpVerification.create({
