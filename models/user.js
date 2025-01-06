@@ -23,13 +23,15 @@ const User = {
         }
     },
 
-    update: async function (id = null, data = {}) {
+    update: async function (id, data = {}) {
         if (!id) throw new Error("No user for update");
     
         try {
           const user = await prisma.user.update({
-            where: { id },
-            data,
+            where: { id : id},
+            data:{
+              ...data
+            },
           });
           return { user, error: null };
         } catch (error) {

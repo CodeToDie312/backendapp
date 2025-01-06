@@ -13,15 +13,15 @@ async function sendOtp(email) {
     const otp = generateOtp();
 
     const transporter = nodemailer.createTransport({
-        service: 'email',
+        service: 'gmail',
         auth: {
-            user: 'your-email@gmail.com',
-            pass: 'your-email-password'
+            user: 'nedave461@gmail.com',
+            pass: 'jmbd tcgq daeq itej'
         }
     })
 
     const mailOption = {
-        from : 'your-email@gmail.com',
+        from : 'nedave461@gmail.com',
         to: email,
         subject : 'OTP Verified Forget Password',
         text : `Your OTP : ${otp}`

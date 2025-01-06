@@ -9,7 +9,7 @@ function apiEmployeeEndpoints(app) {
             response.status(200).json({employee: employee, error: null});
         } catch (e) {
             console.log('FAIL TO GET EMPLOYEE', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
     app.post('/v1/employee/filter', async (request, response) => {
@@ -19,7 +19,7 @@ function apiEmployeeEndpoints(app) {
             response.status(200).json({employee: employee, error: null});
         } catch (e) {
             console.log('FAIL TO GET EMPLOYEE', e.message);
-            response.status(500).message(e.message);
+            response.status(500).json(e.message);
         }
     });
 
@@ -35,7 +35,7 @@ function apiEmployeeEndpoints(app) {
 
         } catch (e) {
             console.log('FAIL TO CREATE EMPLOYEE', e.message);
-            response.status(500).message(e.message)
+            response.status(500).json(e.message)
         }
     })
     app.post('/v1/employee/update', async(request, response) => {
@@ -45,17 +45,17 @@ function apiEmployeeEndpoints(app) {
             response.status(200).json({employee: employee, error: null})
         } catch (e) {
             console.log('FAIL TO UPDATE EMPLOYEE', e.message);
-            response.status(500).message(e.message)
+            response.status(500).json(e.message)
         }
     })
     app.post('/v1/employee/delete', async(request, response) => {
         try {
             const employ_code = reqBody(request);
             await Employee.delete(employ_code);
-            response.status(200).message('DELETED SUCCESS')
+            response.status(200).json('DELETED SUCCESS')
         } catch (e) {
             console.log('FAIL TO DELETE EMPLOYEE', e.message);
-            response.status(500).message(e.message)
+            response.status(500).json(e.message)
         }
     })
 

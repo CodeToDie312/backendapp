@@ -89,14 +89,11 @@ CREATE TABLE `Proposal` (
 CREATE TABLE `Version` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name_version` VARCHAR(191) NOT NULL,
-    `proposal_code` VARCHAR(191) NOT NULL,
-    `date_created` VARCHAR(191) NULL,
-    `signer` VARCHAR(191) NULL,
+    `proposal_code` VARCHAR(191) NULL,
+    `date_version_created` VARCHAR(191) NULL,
+    `signer_version` VARCHAR(191) NULL,
     `fwd` VARCHAR(191) NULL,
-    `link_file_not_sign` VARCHAR(191) NULL,
-    `link_file_report_proposal` VARCHAR(191) NULL,
 
-    UNIQUE INDEX `Version_proposal_code_key`(`proposal_code`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -114,10 +111,7 @@ CREATE TABLE `OtpVerification` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Student` ADD CONSTRAINT `Student_topic_code_fkey` FOREIGN KEY (`topic_code`) REFERENCES `Topic`(`topic_code`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Student` ADD CONSTRAINT `Student_topic_code_fkey` FOREIGN KEY (`topic_code`) REFERENCES `Topic`(`topic_code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Version` ADD CONSTRAINT `Version_proposal_code_fkey` FOREIGN KEY (`proposal_code`) REFERENCES `Proposal`(`proposal_code`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `OtpVerification` ADD CONSTRAINT `OtpVerification_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Version` ADD CONSTRAINT `Version_proposal_code_fkey` FOREIGN KEY (`proposal_code`) REFERENCES `Proposal`(`proposal_code`) ON DELETE CASCADE ON UPDATE CASCADE;

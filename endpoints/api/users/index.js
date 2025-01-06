@@ -75,25 +75,37 @@ function apiUserEndpoints(app) {
     app.post("/forget-pass", async(request, response) => {
         try {
             const { mail } = reqBody(request);
-            if(!mail) { return response.status(400).message('Email is required')}
+            if(!mail) { return response.status(400).json('Email is required')}
 
             const user = await User.get({
-                mail
+                email: mail
             });
             if(!user) {
-                return response.status(404).message('No Email Registed');
+                return response.status(404).json('No Email Registed');
             }
             const otp = await sendOtp(mail);
             const expirationTime = new Date();
+            const data = {
+                user_id: user.id,
+                otp,
+                expiredAt: expirationTime,
+                isVerified: false
+            }
             expirationTime.setMinutes(expirationTime.getMinutes() + 5);
-            await otpVerification.create({
-                data: {
-                    userId: user.id,
-                    otp,
-                    expiredAt: expirationTime,
-                    isVerified: false
-                }
-            });
+            const checkExist = await otpVerification.get({user_id: user.id})
+            if(new Date() > checkExist.expiredAt){
+                await otpVerification.create({
+                    ...data 
+                });
+            }
+            if(checkExist){
+                const user_id = user.id
+                await otpVerification.update(user_id, data);
+            } else {
+                await otpVerification.create({
+                    ...data 
+                });
+            }
             response.status(200).json({message: 'OTP was sended to your mail'});
         } catch (e){
             console.log('FAIL TO RESET PASS', e.message);
@@ -103,9 +115,11 @@ function apiUserEndpoints(app) {
     app.post("/reset-pass", async(request, response) => {
         try {
             const { mail, otp, newPass } = reqBody(request);
-            
+            const user = await User.get({
+                email: mail
+            });
             const otpTimeAlive = await otpVerification.get({
-                user: {mail},
+                user_id: user.id,
                 otp,
                 isVerified: false
             })
@@ -115,21 +129,21 @@ function apiUserEndpoints(app) {
                 return response.status(400).json({message: 'OTP was Exipred'});
             }
 
-            await otpVerification.update({
-                user_id: otpTimeAlive.user_id,
-                data : {
+            await otpVerification.update(
+                otpTimeAlive.user_id,
+                {
                     isVerified: true
                 }
 
-            })
+            )
             const hashedPassword = await hashPassword(newPass);
 
-            await User.update({
-                id: otpTimeAlive.id,
-                data: {
+            await User.update(
+                otpTimeAlive.user_id,
+                {
                     password: hashedPassword
                 }
-            })
+            )
             response.status(200).json({message: 'Pass was Change Success'});
         } catch (e){
             console.log('FAIL TO RESET PASS', e.message);
